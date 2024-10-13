@@ -100,5 +100,75 @@ header a:hover {
 }
 
 #products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     width: 100%;
+}
+
+#products > div {
+    background-color: #fff;
+    width: 250px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    position: relative;
+}
+
+img {
+    width: 220px;
+    height: 220px;
+    margin: 50px 0  40px;
+}
+
+h4 {
+    color: var(--color-primary);
+}
+
+#price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0 10px;
+}
+
+#price p {
+    color: gray;
+    font-weight: 600;
+}
+
+#price button {
+    color: var(--color-primary);
+    background-color: var(--color-secondary);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.1s ease-in;
+}
+
+#price button:hover {
+    color: #fff;
+    background-color: var(--color-primary);
+}
+
+#rate {
+    position: absolute;
+    top: 15px;
+    background-color: var(--color-background);
+    color: var(--color-warning);
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+#count {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--color-background);
+    color: var(--color-error);
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.9rem;
 }
