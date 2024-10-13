@@ -2,15 +2,21 @@ import { getCookie } from "./utils/cookie.js";
 import { getData } from "./utils/httpReq.js";
 import { shortenText } from "./utils/strinFunc.js";
 
+let allProducts = null;
+let search = "";
+let category = "all";
+
 const loginButton = document.getElementById("login");
 const dashboardButton = document.getElementById("dashboard");
 const mainContent = document.getElementById("products");
+const searchButton = document.querySelector("button");
+const inputBox = document.querySelector("input");
+const listItems = document.querySelectorAll("li");
 
 const showProducts = (products) => {
   mainContent.innerHTML = "";
-  
-  console.log(products);
-  products.forEach(product => {
+
+  products.forEach((product) => {
     const jsx = `
       <div>
         <img alt=${product.title} src=${product.image}/>
@@ -31,9 +37,9 @@ const showProducts = (products) => {
           <span>${product.rating.count}</span>
         </div>
       </div>
-    `
+    `;
 
-    mainContent.innerHTML += jsx
+    mainContent.innerHTML += jsx;
   });
 };
 
@@ -46,8 +52,46 @@ const init = async () => {
     dashboardButton.style.display = "none";
   }
 
-  const allProducts = await getData("products");
+  allProducts = await getData("products");
   showProducts(allProducts);
 };
 
+const filterProducts = () => {
+  let filteredProducts = null;
+
+  filteredProducts = allProducts.filter((product) => {
+    if (category === "all") {
+      return product.title.toLowerCase().includes(search);
+    } else {
+      return (
+        product.title.toLowerCase().includes(search) &&
+        product.category.toLowerCase() === category
+      );
+    }
+  });
+
+  showProducts(filteredProducts)
+};
+
+const searchHandler = () => {
+  search = inputBox.value.trim().toLowerCase();
+  filterProducts();
+};
+
+const filterHandler = (event) => {
+  category = event.target.innerText.toLowerCase();
+
+  listItems.forEach((li) => {
+    if (li.innerText.toLowerCase() === category) {
+      li.className = "selected";
+    } else {
+      li.className = "";
+    }
+  });
+
+  filterProducts();
+};
+
 document.addEventListener("DOMContentLoaded", init);
+searchButton.addEventListener("click", searchHandler);
+listItems.forEach((li) => li.addEventListener("click", filterHandler));
