@@ -13,13 +13,13 @@ const searchButton = document.querySelector("button");
 const inputBox = document.querySelector("input");
 const listItems = document.querySelectorAll("li");
 
-const showProducts = (products) => {
+const renderProducts = (products) => {
   mainContent.innerHTML = "";
 
   products.forEach((product) => {
     const jsx = `
       <div>
-        <img alt=${product.title} src=${product.image}/>
+        <img alt=${product.title} src=${product.image} />
         <h4>${shortenText(product.title)}</h4>
         <div id="price">
           <p>$ ${product.price}</p>
@@ -53,7 +53,7 @@ const init = async () => {
   }
 
   allProducts = await getData("products");
-  showProducts(allProducts);
+  renderProducts(allProducts);
 };
 
 const filterProducts = () => {
@@ -70,7 +70,7 @@ const filterProducts = () => {
     }
   });
 
-  showProducts(filteredProducts)
+  renderProducts(filteredProducts)
 };
 
 const searchHandler = () => {
